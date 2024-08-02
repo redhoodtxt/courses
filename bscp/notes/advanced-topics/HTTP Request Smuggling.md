@@ -2,15 +2,14 @@
 	- front-end and back-end will process this as 2 separate requests
 - desynchronization between the front-end and backend
 - innocent request must be `POST`
-	![[request-smuggling.excalidraw|1000]]
+	![1000](../../images/request_smuggling.excalidraw.md)
 # Content-Length
 - uses decimal to represent the bytes/characters
-	![[content-length.excalidraw|800]]
 # Transfer Encoding
-![[transfer-encoding.excalidraw|800]]
+![800](../../images/transfer_encoding.excalidraw.md)
 - `TE` uses hexadecimal representation to represent the bytes/characters
 	- each hexadecimal representation indicates the the chunk size
-		- hence, size `0`  indicates that the next chunk is 0 bytes, which terminates the preceding chunk![[Screenshot 2024-06-12 at 9.39.52 AM.png]]
+		- hence, size `0`  indicates that the next chunk is 0 bytes, which terminates the preceding chunk![chunk size](../../images/chunk_size.png)
 # Performing HTTP Request Smuggling Attack
 ## HTTP Request Smuggling Methodology
 1. Send the request to *Repeater*
@@ -21,22 +20,22 @@
 6. ensure that there is carriage return `\r\n` between request headers and request body
 7. send the request as a sanity check
 	- make sure to get back `200 OK`
-8. check with the following method:![[Screenshot 2024-06-12 at 9.47.23 AM 1.png]]
-	- if reject (`400 Bad Request`)![[Screenshot 2024-06-12 at 10.02.56 AM.png]]
-	- if server timeout (`500 Internal Server Error`)![[Screenshot 2024-06-12 at 10.25.12 AM 1.png]]
-		- attack is as follows:![[Screenshot 2024-06-12 at 1.46.54 PM.png]]
+8. check with the following method:![Screenshot 2024-06-12 at 9.47.23 AM 1.png](images/Screenshot%202024-06-12%20at%209.47.23%20AM%201.png)
+	- if reject (`400 Bad Request`)![](../../images/bad_request.png)
+	- if server timeout ![](../../images/server_timeout.png)
+		- attack is as follows:![](../../images/timeout_req_smuggling.png)
 ## `CL.TE`
 - front-end uses `Content-Length` and backend uses `Transfer-Encoding`
 - when both are present, `TE` overrides `CL`
-![[CLandTE.excalidraw|1000]]
+![1000](../../images/CLandTE.excalidraw.md)
 - sometimes `Transfer-Encoding` can be blacklisted by the front-end. 
 - always place a carriage return before the `0`
 ### `CL.TE` With Incomplete Smuggled Request:
 #### Structure of MalIcious Request:
-![[cl-te-request-structure.excalidraw|1000]]
+![1000](../../images/cl_te_request_structure.excalidraw.md)
 #### Incomplete Smuggling Process
-![[example-incomplete-request.excalidraw|10000]]
-Lab: [[HTTP request smuggling, basic CL.TE vulnerability]]
+![10000](../../images/example_incomplete_request.excalidraw.md)
+Lab: [HTTP request smuggling, basic CL.TE vulnerability](../../../../writeups/portswigger/HTTP%20request%20smuggling,%20basic%20CL.TE%20vulnerability.md)
 ## `TE.CL`
 - front-end uses `Transfer-Encoding` and backend uses `Content-Length`
 	```
@@ -54,7 +53,7 @@ Lab: [[HTTP request smuggling, basic CL.TE vulnerability]]
 	- everything after that will be a second request (our smuggled request)
 		- hence everything after `8\r\n` will be smuggled
 - put a carriage return `\r\n` before the `0`
-Lab: [[HTTP request smuggling, basic TE.CL vulnerability]]
+Lab: [HTTP request smuggling, basic TE.CL vulnerability](../../../../writeups/portswigger/HTTP%20request%20smuggling,%20basic%20TE.CL%20vulnerability.md)
 
 ## `TE.TE`: Obfuscating TE Header
 - both front-end and backend servers both support `Transfer-Encoding` header, but one of the servers can be induced to not process it by obfuscating the header
@@ -78,4 +77,4 @@ Lab: [[HTTP request smuggling, basic TE.CL vulnerability]]
 		```
 - determine whether the front-end or back-end can be induced to process the duplicate obfuscated header
 Labs:
-[[HTTP request smuggling, confirming a CL.TE vulnerability via differential responses]]
+[HTTP request smuggling, confirming a CL.TE vulnerability via differential responses](../../../../writeups/portswigger/HTTP%20request%20smuggling,%20confirming%20a%20CL.TE%20vulnerability%20via%20differential%20responses.md)

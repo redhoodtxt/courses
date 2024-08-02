@@ -9,14 +9,14 @@
 	`<?php echo system($_GET['command']); ?>` : this allows a system command to be passed into the URL via a query parameter
 	`GET /example/exploit.php?command=id HTTP/1.1`
 	`<?php echo file_get_contents('/home/carlos/secret');?>` : retrieve contents of the `secret` file
-Lab: [[Remote Code Execution Via Web Shell Upload]]
+Lab: [Remote Code Execution Via Web Shell Upload](../../../../writeups/portswigger/Remote%20Code%20Execution%20Via%20Web%20Shell%20Upload.md)
 # Flawed Validation Of File Uploads
 ## Flawed File Type Validation 
 - the following `Content-Type` are used typically to send data in a `POST` request:
 	- `application/x-www-form-url-encoded` : sends simple text like name or address
 	- `multipart/form-data` : sending large amounts of binary data (images etc.)
 - if no further validation to check if the actual contents of the file is the given `MIME` type, can exploit
-Lab: [[Web Shell Upload Via Content-Type Restriction Bypass]]
+Lab: [Web Shell Upload Via Content-Type Restriction Bypass](../../../../writeups/portswigger/Web%20Shell%20Upload%20Via%20Content-Type%20Restriction%20Bypass.md)
 ## Preventing File Execution In User Accessible Directories
 - second line of defense (first being stopping dangerous file types from being uploaded) is to stop the server from executing any scripts that slip through the net
 	- servers generally run scripts whose `MIME` type they have been specifically configured to execute
@@ -32,7 +32,7 @@ Lab: [[Web Shell Upload Via Content-Type Restriction Bypass]]
 			    <?php echo system($_GET['command']); ?>
 			```
 - web servers often use `filename` field in `multipart/form-data` to determine the name and location where the file should be saved
-Lab: [[Web Shell Upload Via Path Traversal]]
+Lab: [Web Shell Upload Via Path Traversal](../../../../writeups/portswigger/Web%20Shell%20Upload%20Via%20Path%20Traversal.md)
 ## Insufficient Blacklisting Of Dangerous File Types
 - blacklisting file types (eg. php) can be overcome by using alternative file extensions like `.php5` or `.shtml`
 ### Overriding Server Configuration 

@@ -18,7 +18,7 @@ USE *AUTORIZE* BAPP
 	https://insecure-website.com/admin
 	```
 - can also be hosted in `robots.txt` or any other directory that an attacker can use a wordlist to brute-force into
-Lab: [[Unprotected Admin Functionality]]
+Lab: [Unprotected Admin Functionality](../../../../writeups/portswigger/Unprotected%20Admin%20Functionality.md)
 ### Unprotected Functionality - Obfuscated URL 
 - may invoke 'security by obscurity', where random characters are added to the URL: 
 `https://insecure-website.com/administrator-panel-yb556`
@@ -36,7 +36,7 @@ Lab: [[Unprotected Admin Functionality]]
 	</script>
 	```
 - Attacker is still able to access the URL.
-Lab: [[Unprotected Admin Functionality With Unpredictable URL]]
+Lab: [Unprotected Admin Functionality With Unpredictable URL](../../../../writeups/portswigger/Unprotected%20Admin%20Functionality%20With%20Unpredictable%20URL.md)
 ## Parameter Based Access Controls
  Some applications determine the user's access rights or role at login, and then store this information in a user-controllable location. This could be:
  - A hidden field.
@@ -50,7 +50,7 @@ The application makes access control decisions based on the submitted value. For
 	```
 This is a preset query string parameter. A user can modify the values in the parameter to gain access to the admin functions.
 
-Lab : [[User Role Controlled By Request Parameter]]
+Lab : [User Role Controlled By Request Parameter](../../../../writeups/portswigger/User%20Role%20Controlled%20By%20Request%20Parameter.md)
 # Horizontal Privilege Escalation
 - An attacker gains access to another user's resources who has the same level of authorization
 - For example, a user might access their own account page using the following URL:
@@ -62,7 +62,7 @@ Lab : [[User Role Controlled By Request Parameter]]
 - Common with IDORs
 - Sometimes the parameter may not be a predictable value, can use GUIDs instead of incrementing numbers 
 	- GUIDs can still be disclosed elsewhere in the application 
-Lab: [[User ID Controlled by Request Parameter, With Unpredictable User IDs]]
+Lab: [User ID Controlled by Request Parameter, With Unpredictable User IDs](../../../../writeups/portswigger/User%20ID%20Controlled%20by%20Request%20Parameter,%20With%20Unpredictable%20User%20IDs.md)
 # Horizontal To Vertical Privilege Escalation
 - Compromising a more privileged user 
 	- if the target user is a administrator
@@ -77,4 +77,4 @@ Lab: [[User ID Controlled by Request Parameter, With Unpredictable User IDs]]
 	X-Original-URL: /admin/deleteUser
 	...
 	```
-Lab: [[URL-based Access Control Can Be Circumvented]]
+Lab: [URL-based Access Control Can Be Circumvented](../../../../writeups/portswigger/URL-based%20Access%20Control%20Can%20Be%20Circumvented.md)

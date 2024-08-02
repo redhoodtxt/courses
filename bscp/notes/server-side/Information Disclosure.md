@@ -31,7 +31,7 @@
 - inline HTML comments 
 ## Error Messages
 - verbose error messages 
-Lab: [[Information Disclosure In Error Messages]]
+Lab: [Information Disclosure In Error Messages](../../../../writeups/portswigger/Information%20Disclosure%20In%20Error%20Messages.md)
 ## Debugging Data 
 - custom error messages that contain a lot of information for the purpose of debugging
 	- eg. 
@@ -50,14 +50,14 @@ Lab: [[Information Disclosure In Error Messages]]
 - identify open-source technology
 - trick servers into display eg.`.php` files as text instead of executing them
 	- different file extension (.txt) or appending `~` to the filename
-Lab: [[Source Code Disclosure Via Backup Files]]
+Lab: [Source Code Disclosure Via Backup Files](../../../../writeups/portswigger/Source%20Code%20Disclosure%20Via%20Backup%20Files.md)
 ## Insecure Configuration 
 - when developers use 3rd party technologies with many configuration options
 	- misconfiguration from not knowing how to use the options 
 - use HTTP `TRACE` method to banner grab information - echos the request in the response body to see what changes are made
 	- can lead to information disclosure
 		- eg. internal authentication headers may be appended to requests by reverse proxies
-Lab: [[Authentication Bypass Via Information Disclosure]]
+Lab: [Authentication Bypass Via Information Disclosure](../../../../writeups/portswigger/Authentication%20Bypass%20Via%20Information%20Disclosure.md)
 ## Version Control History
 - all websites' version control data stored in `.git` folder
 	- append `./git` the url and `wget -r` to download to desktop

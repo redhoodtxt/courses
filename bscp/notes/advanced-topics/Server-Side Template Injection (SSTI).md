@@ -7,7 +7,7 @@
 	`http://vulnerable-website.com/?name={{bad-stuff-here}}`
 1. the payload `{{bad-stuff-here}}` can contain Jinja template directives that enable attackers to execute unauthorized code or manipulate the template engine
 # Constructing SSTI
-![[Pasted image 20240531164528.png]]
+![](images/ssti_method.png)
 ## Detect
 - fuzz the template 
 	- inject a sequence of special characters (`${{<%[%'"}}%\`) into the template and analyze the differences in the server's response to regular data vs this special payload
@@ -55,18 +55,18 @@ eg. if the vulnerable code is `render('Hello ' + username)` and the attacker inj
 4. [Template Injection Table](https://github.com/Hackmanit/template-injection-table)
 	- an interactive table containing the most efficient template injection polyglots along with the expected responses of the 44 most important template engines.
 ### Manual Identification
-![[Pasted image 20240531172317.png]]
+![](images/ssti_testing.png)
 ## Exploit 
 ### Reading 
 - read documentation 
 	- learn basic syntax 
 Labs:
-[[Basic Server-Side Template Injection]]
-[[Basic server-side template injection (code context)]]
+[Basic Server-Side Template Injection](../../../../writeups/portswigger/Basic%20Server-Side%20Template%20Injection.md)
+[Basic server-side template injection (code context)](../../../../writeups/portswigger/Basic%20server-side%20template%20injection%20(code%20context).md)
 ### Security Documentation
 - read security section in documentation 
 	- if no security section, there might be warnings about built-in objects or functions
-Lab: [[Server-side template injection in an unknown language with a documented exploit]]
+Lab: [Server-side template injection in an unknown language with a documented exploit](../../../../writeups/portswigger/Server-side%20template%20injection%20in%20an%20unknown%20language%20with%20a%20documented%20exploit.md)
 ### Explore 
 - many template engines expose a "self" or "environment" object of some kind, which acts like a namespace containing all objects, methods, and attributes that are supported by the template engine 
 	- if such an object exists, you can potentially use it to generate a list of objects that are in scope

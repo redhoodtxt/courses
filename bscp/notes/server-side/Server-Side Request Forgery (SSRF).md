@@ -13,8 +13,8 @@ occasionally, a server is able to interact with other back-end systems that cann
 				- do a brute-force to obtain the IP address of the internal IP if it is not given 
 - if the IP of the back-end system(eg. administrative interface) in the internal network is obtained, for example 192.168.0.68, An attacker can submit the following request to exploit the SSRF vulnerability, and access the administrative interface:
 Labs:
-[[Basic SSRF Against the Local Server]]
-[[Basic SSRF Against Another Back-End System]]
+[Basic SSRF Against the Local Server](../../../../writeups/portswigger/Basic%20SSRF%20Against%20the%20Local%20Server.md)
+[Basic SSRF Against Another Back-End System](../../../../writeups/portswigger/Basic%20SSRF%20Against%20Another%20Back-End%20System.md)
 # SSRF With Blacklist-Based Input Filters
 - some applications block input containing hostnames like `127.0.0.1` and `localhost`, or sensitive URLs like `/admin`
 - circumvention techniques:
@@ -23,7 +23,7 @@ Labs:
     3. Obfuscate blocked strings using URL encoding or case variation.
     4. Provide a URL that you control, which redirects to the target URL. Try using different redirect codes, as well as different protocols for the target URL. For example, switching from an http: to https: URL during the redirect has been shown to bypass some anti-SSRF filters.
 	    `http://trusted-website.com/redirect?url=http://127.0.0.1`
-Lab: [[SSRF with blacklist-based input filter]]
+Lab: [SSRF with blacklist-based input filter](../../../../writeups/portswigger/SSRF%20with%20blacklist-based%20input%20filter.md)
 # SSRF With Whitelist-Based Input Filters
  - some applications only allow inputs that match, a whitelist of permitted values. The filter may look for a match at the beginning of the input, or contained within in it. You may be able to bypass this filter by exploiting inconsistencies in URL parsing.
 - the URL specification contains a number of features that are likely to be overlooked when URLs implement ad-hoc parsing and validation using this method:

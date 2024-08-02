@@ -1,5 +1,5 @@
 # How Web Caching Works 
-![[web_cache.excalidraw|1000]]
+![1000](../../images/web_cache.excalidraw.md)
 - caches identify similiar requests by comparing a predefined subset of the request's components (cache key)
 	- cache key typically contain the request line and `Host` header
 	- components not included in the cache key are 'unkeyed'
@@ -27,7 +27,7 @@
 - whether a response is cached depends on a lot of factors 
 	- file extension, content type, route, status code & response headers
 - need to play around with requests on different pages and study how the cache behaves
-	![[web_cache_poisoning.excalidraw|1000]]
+	![1000](../../images/web_cache_poisoning.excalidraw.md)
 # Web Cache Poisoning To Deliver XSS
 - exploit unkeyed input that is reflected in a cacheable response without proper sanitization
 1. with the following request and response:
@@ -72,7 +72,7 @@
 	HTTP/1.1 200 OK
 	<script src="https://evil-user.net/static/analytics.js"></script>
 	```
-Lab: [[Web cache poisoning with an unkeyed header]]
+Lab: [Web cache poisoning with an unkeyed header](../../../../writeups/portswigger/Web%20cache%20poisoning%20with%20an%20unkeyed%20header.md)
 # Web Cache Poisoning To Exploit Cookie-Handling Vulnerabilities
 - cookie might be used to dynamically generate content in a response
 	```
@@ -83,7 +83,7 @@ Lab: [[Web cache poisoning with an unkeyed header]]
 	Connection: close
 	```
 - cookie header might not be in the cache key
-Lab: [[Web cache poisoning with an unkeyed cookie]]
+Lab: [Web cache poisoning with an unkeyed cookie](../../../../writeups/portswigger/Web%20cache%20poisoning%20with%20an%20unkeyed%20cookie.md)
 # Multiple Headers To Exploit Web Cache Poisoning Vulnerabilities
 - some require crafting a request that manipulates multiple unkeyed inputs
 	- eg. if a website requires secure communication using HTTPS and the request that uses another protocol is received, the website will dynamically generate a redirect to itself that does use HTTPS
@@ -112,7 +112,7 @@ Lab: [[Web cache poisoning with an unkeyed cookie]]
 ## `Vary` Header
 - the **`Vary`** HTTP response header describes the parts of the request message aside from the method and URL that influenced the content of the response it occurs in. Most often, this is used to create a cache key when [content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation) is in use.
 - it specifies the list of additional headers that should be treated as part of the cache key even if they are normally unkeyed
-Lab: [[Targeted web cache poisoning using an unknown header]]
+Lab: [Targeted web cache poisoning using an unknown header](../../../../writeups/portswigger/Targeted%20web%20cache%20poisoning%20using%20an%20unknown%20header.md)
 # Cache Key Flaws
 - most websites take their input from the URL path and the query string
 	- request line however is usually part of the cache key 
@@ -190,11 +190,11 @@ Lab: [[Targeted web cache poisoning using an unknown header]]
 - Param Miner - can also select the options "Add static/dynamic cache buster" and "Include cache busters in headers
 ### Exploiting Unkeyed Query String 
 - XSS if possible 
-Lab: [[Web cache poisoning via an unkeyed query string]]
+Lab: [Web cache poisoning via an unkeyed query string](../../../../writeups/portswigger/Web%20cache%20poisoning%20via%20an%20unkeyed%20query%20string.md)
 ## Unkeyed Query Parameters
 - sometimes websites only exclude specific query parameters that are not relevant
 	- good to check parameters like `utm_content`
-Lab: [[Web cache poisoning via an unkeyed query parameter]]
+Lab: [Web cache poisoning via an unkeyed query parameter](../../../../writeups/portswigger/Web%20cache%20poisoning%20via%20an%20unkeyed%20query%20parameter.md)
 ## Cache Parameter Cloaking
 - work out how the cache parses the URL to identify and remove the unwanted parameters 
 	- so to try and sneak arbitrary parameters into the application by cloaking them in an excluded parameter
@@ -207,13 +207,13 @@ eg.
 ### Exploiting Parameter Parsing Quirks
 - Ruby on Rails framework for back-end interprets both `&` and `;` as delimiters
 - when this is used in conjunction with a cache that does not allow the above, can be used to inject our payload into a poisoned cached response without affecting the cache key
-	![[exploit-quirks.excalidraw|10000]]
+	![10000](../../images/exploit-quirks.excalidraw.md)
 - exploit very powerful if it gives control over a function that will be executed
 eg. 
 1. if a website is using JSONP to make cross-domain requests, this will often contain a callback parameter to execute a given function on the returned data:
 	`GET /jsonp?callback=innocentFunction`
 2. can the above techniques to override the expected callback function and execute arbitrary JS.
-Lab: [[Parameter cloaking]]
+Lab: [Parameter cloaking](../../../../writeups/portswigger/Parameter%20cloaking.md)
 ### Exploiting Fat `GET` Support 
 - in some cases, the HTTP method may not be keyed
 	- this can allow us to poison the cache with a `POST` request containing a malicious payload in the body
@@ -227,7 +227,7 @@ Lab: [[Parameter cloaking]]
 	```
 cache key in this case taken from the request line, but the server-side value would be taken from the body
 note that the param name must be the same in the body as in the request line
-Lab: [[Web cache poisoning via a fat GET request]]
+Lab: [Web cache poisoning via a fat GET request](../../../../writeups/portswigger/Web%20cache%20poisoning%20via%20a%20fat%20GET%20request.md)
 ### Exploiting Dynamic Content In Resource Imports 
 - some imported resource files are typically static but some reflect input from the query string
 	- by combining this with web cache poisoning, can occasionally inject content into the resource file
@@ -251,7 +251,7 @@ Lab: [[Web cache poisoning via a fat GET request]]
 		This request was blocked due to…alert(1){}*{color:red;}
 		```
 ## Normalized Cache Keys
-![[normalized-cache-keys.excalidraw|10000]]
+![10000](../../images/normalized-cache-keys.excalidraw.md)
 - **normalization:** transforming keys into a consistent format
 	- eg. 
 		1. using unicode
@@ -264,4 +264,4 @@ Lab: [[Web cache poisoning via a fat GET request]]
 	GET /example?param="><test>
 	GET /example?param=%22%3e%3ctest%3e
 	```
-Lab: [[URL normalization]]
+Lab: [URL normalization](../../../../writeups/portswigger/URL%20normalization.md)

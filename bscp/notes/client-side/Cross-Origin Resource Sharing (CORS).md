@@ -4,7 +4,7 @@
 - potential for cross-domain attacks
 # Same-Origin Policy 
 - **server requesting** a resource and the server hosting the **resource** must share from the same protocol, domain name and port 
-	![[Screenshot 2024-05-29 at 9.57.18 AM.png]]
+	![](../../images/same_origin_policy.png)
 # `Access-Control-Allow-Origin` Header
 - identifies the permitted origin of the request
 1. following cross-domain request from `normal-website.com`
@@ -84,7 +84,7 @@ Access-Control-Allow-Credentials: true
 ```html
 file
 ```
-Lab: [[CORS vulnerability with basic origin reflection]]
+Lab: [CORS vulnerability with basic origin reflection](../../../../writeups/portswigger/CORS%20vulnerability%20with%20basic%20origin%20reflection.md)
 # Error Parsing Origin Headers
 - some applications use a whitelist of allowed origins 
 	- when a CORS request is received, the supplied origin is compared to the whitelist 
@@ -144,6 +144,6 @@ Lab: [[CORS vulnerability with basic origin reflection]]
 	```
 3. then an attacker who finds an XSS vulnerability on subdomain.vulnerable-website.com could use that to retrieve the API key, using a URL like:
 	`https://subdomain.vulnerable-website.com/?xss=<script>cors-stuff-here</script>`
-	![[Screenshot 2024-05-29 at 6.09.46 PM.png]]
+	![](../../images/cors_with_xss.png)
 # Breaking TLS With Poorly Configured CORS 
-	![[Screenshot 2024-05-29 at 6.09.25 PM.png]]
+![](../../images/cors_with_mitm.png)

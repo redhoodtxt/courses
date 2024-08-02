@@ -19,7 +19,7 @@ USE FUZZING - PATH TRAVERSAL PREDEFINED PAYLOADS
 			`/etc/passwd`
 - if an application strips or blocks path traversal from user inputs, can be bypass with diff techniques
 	- eg. using absolute path to reference to a sensitive file
-Lab: [[File Path Traversal, Traversal Sequences Blocked With Absolute Path Bypass]]
+Lab: [File Path Traversal, Traversal Sequences Blocked With Absolute Path Bypass](../../../../writeups/portswigger/File%20Path%20Traversal,%20Traversal%20Sequences%20Blocked%20With%20Absolute%20Path%20Bypass.md)
 # Nested Traversal Sequences
 - if an application uses stripping of path traversal (stripping `../` we can bypass this by using nested path traversal:
 	- `....//` - when application strips 1 there is still another 

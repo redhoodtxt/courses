@@ -1,7 +1,7 @@
 - **Serialization:** method of converting an object into a format that can be preserved, with the intent of either storing the object or transmitting it as part of a communication process
 - **Deserialization:** involves taking data that has been structured in a specific format and reconstructing it back into an object
 	- can manipulate serialized data to execute harmful code
-![[Pasted image 20240530101427.png]]
+![Pasted image 20240530101427](../../../../writeups/portswigger/images/Pasted%20image%2020240530101427.png)
 - **Insecure Deserialization:** user-controllable data is deserialized by a website
 # Identifying Insecure Deserialization 
 - tip: use Burp Scanner to automatically flag out HTTP messages that appear to contain serialized objects
@@ -43,7 +43,7 @@
 	}
 	```
 4. this vulnerable code would instantiate a User object based on the data from the cookie, including the attacker-modified isAdmin attribute. At no point is the authenticity of the serialized object checked. This data is then passed into the conditional statement and, in this case, would allow for an easy privilege escalation. 
-Lab:[[Modifying serialized objects]]
+Lab:[Modifying serialized objects](../../../../writeups/portswigger/Modifying%20serialized%20objects.md)
 ## Modifying Data Types
 - PHP vulnerable to this due its loose comparison operator `==`
 	- `5 == "5"` evaluates to `true`
@@ -61,12 +61,12 @@ Lab:[[Modifying serialized objects]]
 1. let's say an attacker modified the password attribute so that it contained the integer 0 instead of the expected string. As long as the stored password does not start with a number, the condition would always return true, enabling an authentication bypass. 
 2. this is possible because deserialization preserves a data type
 3. if the code fetched the password directly from the request, the 0 will be converted to a string and the condition will evaluate to a `false`
-Lab: [[Modifying serialized data types]]
+Lab: [Modifying serialized data types](../../../../writeups/portswigger/Modifying%20serialized%20data%20types.md)
 **NOTE:** take note that when encoding the cookie after modifying it, the padding (`=`) must be correct if the encoding is base64. padding can be 0,1 or 2 `=` characters
 # Using Application Functionality
 - as part of a website's "Delete user" functionality, the user's profile picture is deleted by accessing the file path in the `$user->image_location` attribute. 
 - if this `$user` was created from a serialized object, an attacker could exploit this by passing in a modified object with the `image_location` set to an arbitrary file path. Deleting their own user account would then delete this arbitrary file as well. 
-Lab:[[Using application functionality to exploit insecure deserialization]]
+Lab:[Using application functionality to exploit insecure deserialization](../../../../writeups/portswigger/Using%20application%20functionality%20to%20exploit%20insecure%20deserialization.md)
 # Magic Methods
 - invoked whenever a particular event occurs
 	- indicated by prefixing or surrounding the method name with `__`
@@ -157,9 +157,9 @@ Resources: https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
 	   [payload] '[command]'
 	```
 - The above works for `jdk 15` and below
-Lab: [[Exploiting Java deserialization with Apache Commons]]
+Lab: [Exploiting Java deserialization with Apache Commons](../../../../writeups/portswigger/Exploiting%20Java%20deserialization%20with%20Apache%20Commons.md)
 ### `PHPGGC` - Tool For PHP Deserialization (PHP Generic Gadget Chains)
 - `ysoserial` for php
-Lab: [[Exploiting PHP deserialization with a pre-built gadget chain]]
+Lab: [Exploiting PHP deserialization with a pre-built gadget chain](../../../../writeups/portswigger/Exploiting%20PHP%20deserialization%20with%20a%20pre-built%20gadget%20chain.md)
 ### Working With Documented Gadget Chains
 - look online to see if there are any documented exploits if there is no tool for a framework or language

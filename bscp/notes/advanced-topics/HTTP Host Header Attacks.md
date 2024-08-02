@@ -111,16 +111,16 @@ eg. parsing algorithms will only validate the domain name in `Host` header
 3. https://evil-user.net/reset?token=0a1b2c3d4e5f6g7h8i9j
 4. If the victim clicks this link (or it is fetched in some other way, for example, by an antivirus scanner) the password reset token will be delivered to the attacker's server (access log)
 5. The attacker can now visit the real URL for the vulnerable website and supply the victim's stolen token via the corresponding parameter. They will then be able to reset the user's password to whatever they like and subsequently log in to their account.
-Lab: [[Basic password reset poisoning]]
+Lab: [Basic password reset poisoning](../../../../writeups/portswigger/Basic%20password%20reset%20poisoning.md)
 ## Web Cache Poisoning Via Host Headers
 - using `Host` header to reflect XSS is useless without if the target does not use a web cache
 	- can use the cache to serve a poisoned response
 - can use ambiguous requests
-Lab: [[Web cache poisoning via ambiguous requests]]
+Lab: [Web cache poisoning via ambiguous requests](../../../../writeups/portswigger/Web%20cache%20poisoning%20via%20ambiguous%20requests.md)
 ## Accessing Restricted Functionality 
 - some websites make flawed assumptions about a user's access control
 	- can be bypassed by modifying the `Host` header
-Lab: [[Host header authentication bypass]]
+Lab: [Host header authentication bypass](../../../../writeups/portswigger/Host%20header%20authentication%20bypass.md)
 ## Accessing Internal Websites With Virtual Host Brute-Forcing
 - sometimes companies host publicly accessible websites and private, internal sites on the same server
 	- servers usually have public and private IP address, therefore scenario cannot always be detected simply by looking at DNS records, or the internal site might not even have a public DNS record associated with it
@@ -140,8 +140,8 @@ Lab: [[Host header authentication bypass]]
 `<8 bits>.<8 bits>.<8 bits>.<8 bits>`
 in `192.168.0.0/24`, it indicates that the first 24 bits (`192.168.0`) are all fixed and does not change. hence the range is for the last 8 bits or the last digit in the IP 
 Labs: 
-[[Routing-based SSRF]]
-[[SSRF via flawed request parsing]]
+[Routing-based SSRF](../../../../writeups/portswigger/Routing-based%20SSRF.md)
+[SSRF via flawed request parsing](../../../../writeups/portswigger/SSRF%20via%20flawed%20request%20parsing.md)
 
 ## Connection State Attacks 
 - many websites reuse connections for multiple request/response cycles with the same client
@@ -155,4 +155,4 @@ Labs:
 4. select *Send group in sequence(single connection)* to place these 2 requests in one HTTP connection ``
 5. change the `Connection` in both requests to `keep-alive`.
 Reference: [Connection state attacks](https://infosecwriteups.com/connect-state-attack-first-request-validation-2bea8e42a647)
-Lab: [[Host validation bypass via connection state attack]]
+Lab: [Host validation bypass via connection state attack](../../../../writeups/portswigger/Host%20validation%20bypass%20via%20connection%20state%20attack.md)

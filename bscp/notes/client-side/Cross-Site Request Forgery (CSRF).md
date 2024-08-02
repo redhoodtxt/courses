@@ -31,7 +31,7 @@
 			- use CSRF PoC generator that is built in Burp 
 				- select the request and right click to *Engagement tools-> Generate CSRF PoC*
 				- cookies will be added by the victim's browser
-			Lab: [[CSRF vulnerability with no defenses]]
+			Lab: [CSRF vulnerability with no defenses](../../../../writeups/portswigger/CSRF%20vulnerability%20with%20no%20defenses.md)
 			- use phishing links or stored XSS
 			- self-contained attack: `<img src="https://vulnerable-website.com/email/change?email=pwned@evil-user.net">` (assuming it is a `GET` request)
 # Defences Against CSRF
@@ -60,14 +60,14 @@
 # Flaws In CSRF Token Validation 
 ## Validation Depending On Request Method
 - switch the method (eg. if `POST`, change to `GET` method)
-Lab: [[CSRF where token validation depends on request method]]
+Lab: [CSRF where token validation depends on request method](../../../../writeups/portswigger/CSRF%20where%20token%20validation%20depends%20on%20request%20method.md)
 ## Validation Depending On Token Being Present
 - remove the token parameter
 ## Token Not Tied To User Session
 - some applications do not validate that the token belongs to the same session as the user who is making the request 
 - Instead, the application maintains a global pool of tokens that it has issued and accepts any token that appears in this pool
 - attacker can log into their application using their own account, obtain a valid token and then feed that token to the victim user in their CSRF attack
-Lab: [[CSRF where token is not tied to user session]]
+Lab: [CSRF where token is not tied to user session](../../../../writeups/portswigger/CSRF%20where%20token%20is%20not%20tied%20to%20user%20session.md)
 ## Token Tied To A Non-Session Cookie
 - some applications do tie the CSRF token to a cookie, but not to the same cookie that is used to track sessions
 	```
@@ -80,7 +80,7 @@ Lab: [[CSRF where token is not tied to user session]]
 	csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
 	```
 - attacker can log into the application using their own account, obtain a valid toke and associated cookie, leverage the cookie-setting behaviour to place their cookie into the victim's browser, and feed their token to the victim in their CSRF attack
-Lab: [[CSRF where token is tied to non-session cookie]]
+Lab: [CSRF where token is tied to non-session cookie](../../../../writeups/portswigger/CSRF%20where%20token%20is%20tied%20to%20non-session%20cookie.md)
 ## CSRF Token Is Simply Duplicated In A Cookie
 - some applications do not maintain any server-side record of tokens that have been issued, but instead duplicate each token within a cookie and a request parameter
 - double submit defense
@@ -95,13 +95,13 @@ Lab: [[CSRF where token is tied to non-session cookie]]
 		csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&email=wiener@normal-user.com
 		```
 - attacker can invent the token in the required format, leverage the cookie-setting behaviour to place the cookie in the victim's browser and feed their token to the victim in their CSRF attack
-Lab: [[CSRF where token is duplicated in cookie]]
+Lab: [CSRF where token is duplicated in cookie](../../../../writeups/portswigger/CSRF%20where%20token%20is%20duplicated%20in%20cookie.md)
 # Bypassing SameSite Cookie Restrictions
 - browser security mechanism that determines when a website's cookies are included in requests originating from other websites
 - URL is taken into consideration
 	- link from `http://example.com` to `https://example.com` is treated as cross-site by most browsers
 ## Site vs Origin
-![[Screenshot 2024-05-24 at 9.28.39 AM.png]]
+![](../../images/site_vs_origin.png)
 ### None
 - browsers will always send cookies\
 - when setting a co okie with SameSite=None, the website must also include the Secure attribute, which ensures that the cookie is only sent in encrypted messages over HTTPS. Otherwise, browsers will reject the cookie and it won't be set. 
@@ -110,7 +110,7 @@ Lab: [[CSRF where token is duplicated in cookie]]
 - browsers will not send the cookie in any cross-site requests
 ### Lax
 - Cookie will only be sent if 1) is a `GET` request and 2) the request originates from a top-level navigation
-	![[Pasted image 20240524100804.png]]
+	![](../../images/restrictions_explained.png)
 ## Bypassing SameSite Lax Using `GET` Requests
 ```html
 <script>
@@ -125,11 +125,11 @@ Even if `GET` request is not allowed, can override the method specified
     <input type="hidden" name="amount" value="1000000">
 </form>
 ```
-Lab: [[SameSite Lax bypass via method override]]
+Lab: [SameSite Lax bypass via method override](../../../../writeups/portswigger/SameSite%20Lax%20bypass%20via%20method%20override.md)
 ## Bypassing SameSite Restrictions Using On-Site Gadgets
 - can get around `SameSite=Strict` limitation if can find gadget that results in a secondary request within the same site
 	- eg. client-side redirect that dynamically constructs the redirection target using attacker controllable input like URL params
-Lab: [[SameSite bypass via client-side redirect]]
+Lab: [SameSite bypass via client-side redirect](../../../../writeups/portswigger/SameSite%20bypass%20via%20client-side%20redirect.md)
 ## Bypassing SameSite Lax Restrictions With Newly Issued Cookies
 - lax restrictions not enforced for 120s
 - you can trigger the cookie refresh from a new tab so the browser doesn't leave the page before you're able to deliver the final attack
@@ -140,7 +140,7 @@ Lab: [[SameSite bypass via client-side redirect]]
 		    window.open('https://vulnerable-website.com/login/sso');
 		}
 		```
-Lab: [[SameSite Lax bypass via cookie refresh]]
+Lab: [SameSite Lax bypass via cookie refresh](../../../../writeups/portswigger/SameSite%20Lax%20bypass%20via%20cookie%20refresh.md)
 # Bypassing Referer-Based CSRF Tokens
 - use `Referer` header to verify that the request originated from the application's domain.
 - some applications validate the `Referer` header when it is present in requests but skip the validation if the header is omitted.
@@ -154,5 +154,5 @@ Lab: [[SameSite Lax bypass via cookie refresh]]
 - although you may be able to identify this behavior using Burp, you will often find that this approach no longer works when you go to test your proof-of-concept in a browser. In an attempt to reduce the risk of sensitive data being leaked in this way, many browsers now strip the query string from the `Referer` header by default.
 	- you can override this behavior by making sure that the response containing your exploit has the `Referrer-Policy: unsafe-url` header set. This ensures that the full URL will be sent, including the query string.
 Labs:
-[[CSRF where Referer validation depends on header being present]]
-[[CSRF with broken Referer validation]]
+[CSRF where Referer validation depends on header being present](../../../../writeups/portswigger/CSRF%20where%20Referer%20validation%20depends%20on%20header%20being%20present.md)
+[CSRF with broken Referer validation](../../../../writeups/portswigger/CSRF%20with%20broken%20Referer%20validation.md)

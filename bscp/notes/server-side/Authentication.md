@@ -27,12 +27,12 @@
 	1. add the following header in the request: 
 		- `X-Forwarded-For: 12.13.14.§15§` 
 	2. use the *Pitchfork* attack and set the second defined point/payload to be the value of the username
-		![[Pasted image 20240503155213.png]]12.13.14.
+		![Pasted image 20240503155213](../../../../writeups/portswigger/images/pitchfork.png)12.13.14.
 		
 Labs: 
-[[Username Enumeration Via Different Responses]]
-[[Username Enumeration Via Response Timing]]
-[[Broken Brute-Force Protection, IP Block]]
+[Username Enumeration Via Different Responses](../../../../writeups/portswigger/Username%20Enumeration%20Via%20Different%20Responses.md)
+[Username Enumeration Via Response Timing](../../../../writeups/portswigger/Username%20Enumeration%20Via%20Response%20Timing.md)
+[Broken Brute-Force Protection, IP Block](../../../../writeups/portswigger/Broken%20Brute-Force%20Protection,%20IP%20Block.md)
 ## Account Locking 
 - when using the same username, too many incorrect logins (wrong passwords)
 - use a max 3 passwords(if that is the limit) for each username and move on to the next to prevent account locking
@@ -52,7 +52,7 @@ Labs:
 ## Bypassing 2FA 
 - if the user is prompted to enter a verification code on a separate after entering a password, the user is in a "logged in" state before they have enter the verification code. 
 - test to see if you can skip to the logged in page
-Lab: [[2FA Simple Bypass]]
+Lab: [2FA Simple Bypass](../../../../writeups/portswigger/2FA%20Simple%20Bypass.md)
 ### Flawed 2FA Verification Logic 
 - 2 step login process, one for password, another for verification code
 - an attacker could log in using their own credentials but then change the value of the account cookie to any arbitrary username when submitting the verification code. 
@@ -90,8 +90,8 @@ Lab: [[2FA Simple Bypass]]
 	- sometimes the cookie is hashed without salt or encoded in base64, which offers no protection
 - Note**: Use payloads processing to set the predefined points to a encoding or encryption if needed when bruteforcing the cookie, if you know the encoding or the encryption of the logged in cookie
 Labs: 
-[[Brute-forcing a stay-logged-in cookie]]
-[[Offline Password Cracking (FINISH UP - XSS VULNERABILITY)]]
+[Brute-forcing a stay-logged-in cookie](../../../../writeups/portswigger/Brute-forcing%20a%20stay-logged-in%20cookie.md)
+[Offline Password Cracking (FINISH UP - XSS VULNERABILITY)](../../../../writeups/portswigger/Offline%20Password%20Cracking%20(FINISH%20UP%20-%20XSS%20VULNERABILITY).md)
 ## Resetting User Passwords
 ### Reset By Email
 - usually newly generated passwords that either expire after awhile or require immediate change sent over email
@@ -114,14 +114,14 @@ Labs:
 				1. visit the reset form with their own credentials
 				2. delete the reset token and modify the user to be a victim username 
 				3. submit the reset form to change the victim's password
-Lab: [[Password Reset Broken Logic]]
+Lab: [Password Reset Broken Logic](../../../../writeups/portswigger/Password%20Reset%20Broken%20Logic.md)
 - ==insecure: if the reset URL is generated dynamically, this is vulnerable to password reset poisoning==
 	- attacker can steal another user's token and use it to change their password
 ### Password Reset Poisoning
 - use `X-Forwarded-Host:<exploit_server>` to send the password reset page to your own server to exploit
 	- `X-Forwarded-Host` header is used to preserve the original host information in HTTP requests that pass through proxy servers or load balancers, allowing servers to accurately determine the original host requested by the client
 		- do not need to include `https://`
-[[Password reset poisoning via middleware]]
+[Password reset poisoning via middleware](../../../../writeups/portswigger/Password%20reset%20poisoning%20via%20middleware.md)
 ## Password Change 
 - changing password requires entering current password and new password twice
 	- same process for checking username and password
@@ -129,7 +129,7 @@ Lab: [[Password Reset Broken Logic]]
 	- For example, if the username is provided in a hidden field, an attacker might be able to edit this value in the request to target arbitrary users. This can potentially be exploited to enumerate usernames and brute-force passwords. 
 - check for change in behaviour between the new passwords (*New Passwords Do Not Match* etc.)
 	- brute-force the current password while searching for the error response
-		![[Screenshot 2024-05-07 at 3.45.38 PM.png]]
+		![](images/new_pw_do_not_match.png)
 # Persistence After Cookie-Stealing
-![[Screenshot 2024-06-19 at 5.35.59 PM.png]]
 - replace your cookie with the victim user cookie such that it always uses the victim user's cookie
+	- inspect the website and paste session cookie into developer console

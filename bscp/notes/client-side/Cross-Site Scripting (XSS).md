@@ -20,17 +20,17 @@
 	`https://insecure-website.com/status?message=<script>/*+Bad+stuff+here...+*/</script>`
 - this causes the following to be returned in the response:
 	`<p>Status: <script>/* Bad stuff here... */</script></p>`
-Lab: [[Reflected XSS into HTML context with nothing encoded]]
+Lab: [Reflected XSS into HTML context with nothing encoded](../../../../writeups/portswigger/Reflected%20XSS%20into%20HTML%20context%20with%20nothing%20encoded.md)
 - REFLECTED XSS IS NOT STORED IN THE DATABASE
 	- therefore you need to send then link with the malicious javascript to a victim to click on it (phishing!)
 		- using `document.cookie` to get the session cookie of the victim
 		- eg. if a victim clicks on a link where the malicious script is `alert(document.cookie)` it can expose the sensitive information of the attacker 
 		- further implementation by the attacker will allow the information from `alert(document.cookie)` to be sent to the attacker to enumerate information
-			![[Screenshot 2024-05-13 at 6.25.23 PM.png]]
+			![](../../images/reflected_xss.png)
 		- as reflected XSS requires an external mechanism, it is less severe than stored XSS
-[[Reflected XSS into HTML context with most tags and attributes blocked]]
-[[Reflected XSS into HTML context with all tags blocked except custom ones]]
-[[Reflected XSS with some SVG markup allowed]]
+[Reflected XSS into HTML context with most tags and attributes blocked](../../../../writeups/portswigger/Reflected%20XSS%20into%20HTML%20context%20with%20most%20tags%20and%20attributes%20blocked.md)
+[Reflected XSS into HTML context with all tags blocked except custom ones](../../../../writeups/portswigger/Reflected%20XSS%20into%20HTML%20context%20with%20all%20tags%20blocked%20except%20custom%20ones.md)
+[Reflected XSS with some SVG markup allowed](../../../../writeups/portswigger/Reflected%20XSS%20with%20some%20SVG%20markup%20allowed.md)
 ## Reflected XSS In HTML Tag Attributes
 - sometimes can terminate the attribute value, close the tag and introduce a new tag
 - more commonly, angle brackets are encoded, meaning that it will be reflected back in encoding, preventing the closing of the tag and hence execution of the javascript
@@ -39,7 +39,7 @@ Lab: [[Reflected XSS into HTML context with nothing encoded]]
 		- `autofocus` triggers focus without user interaction, which will fire the `onfocus` event automatically
 		- `x` is used to close to repair the markup 
 			`a src=" " autofocus onfocus=alert(document.domain) x=" "`
-Lab: [[Reflected XSS into attribute with angle brackets HTML-encoded]]
+Lab: [Reflected XSS into attribute with angle brackets HTML-encoded](../../../../writeups/portswigger/Reflected%20XSS%20into%20attribute%20with%20angle%20brackets%20HTML-encoded.md)
 - injections are possible with tags that don't usually fire events automatically, like an canonical tag
 	- canonical tag tells the search engine which version of the page is the master copy when there are multiple versions available
 		- found in the `head` of the webpage
@@ -47,7 +47,7 @@ Lab: [[Reflected XSS into attribute with angle brackets HTML-encoded]]
 	- can use `accesskey` attribute to exploit
 		- can assign a letter on keyboard for a shortcut
 			`<a href="#home" accesskey="h">Home</a>
-Lab: [[Reflected XSS in canonical link tag]]
+Lab: [Reflected XSS in canonical link tag](../../../../writeups/portswigger/Reflected%20XSS%20in%20canonical%20link%20tag.md)
 ## XXS Into Javascript
 ### Terminating Existing Script
 - eg. script:
@@ -100,12 +100,12 @@ which gets converted to:
 - entry point : where the malicious script is injected
 - exit point : all endpoints where the script is executed
 Labs: 
-[[Stored XSS into HTML context with nothing encoded]]
+[Stored XSS into HTML context with nothing encoded](../../../../writeups/portswigger/Stored%20XSS%20into%20HTML%20context%20with%20nothing%20encoded.md)
 ## Stored XSS In HTML Tags
 - can XSS into a HTML tag without the need for closing the attribute by calling on the js pseudo protocol
 - if a functionality has a website field, it will probably use the `<a>` tag to hyperlink, hence inject into the website field
 `<a href="javascript:alert(document.domain)">`
-Lab: [[Stored XSS into anchor href attribute with double quotes HTML-encoded]]
+Lab: [Stored XSS into anchor href attribute with double quotes HTML-encoded](../../../../writeups/portswigger/Stored%20XSS%20into%20anchor%20href%20attribute%20with%20double%20quotes%20HTML-encoded.md)
 
 ## Making Use Of HTML-Encoding
 1. input parsed into search functionality
@@ -186,8 +186,8 @@ https://example.com/search?query=<script>alert('XSS')</script>
 	3. when found the sink where the original data from the source is parsed through, use the debugger to inspect the value
 	4. refine input to see if can deliver an XSS attack
 Labs: 
-[[DOM XSS in document.write sink using source location.search]]
-[[DOM XSS in document.write sink using source location.search inside a select element]]
+[DOM XSS in document.write sink using source location.search](../../../../writeups/portswigger/DOM%20XSS%20in%20document.write%20sink%20using%20source%20location.search.md)
+[DOM XSS in document.write sink using source location.search inside a select element](../../../../writeups/portswigger/DOM%20XSS%20in%20document.write%20sink%20using%20source%20location.search%20inside%20a%20select%20element.md)
 - `innerHTML` sink does not accept script elements, so must use event handler or error handling eg.
 	- `<img src=1 onerror=alert(document.domain)>`
 	- `innerHTML` allows you to manipulate items within tags:
@@ -195,7 +195,7 @@ Labs:
 			- `getElementById(<id>)`: this gets the tag by Id
 			- `innerHTML` : whatever that is within the tag that is retrieved
 			- `onerror` : whatever is the error when the image is failed to retrieved
-Lab: [[DOM XSS in innerHTML sink using source location.search]]
+Lab: [DOM XSS in innerHTML sink using source location.search](../../../../writeups/portswigger/DOM%20XSS%20in%20innerHTML%20sink%20using%20source%20location.search.md)
 ## DOM XSS In jQuery
 - javascript library
 	- look for sinks that can alter DOM elements 
@@ -215,7 +215,7 @@ $(function() {
 	`?returnURL=javascript:alert(document.domain)`
 		- cannot use script tags because the sink is `attr()` where `href` is being used to change the attribute of the element with the id `#backLink
 		- `javascript:alert(1)` does not work for `<img src=>` 
-Lab: [[DOM XSS in jQuery anchor href attribute sink using location.search source]]
+Lab: [DOM XSS in jQuery anchor href attribute sink using location.search source](../../../../writeups/portswigger/DOM%20XSS%20in%20jQuery%20anchor%20href%20attribute%20sink%20using%20location.search%20source.md)
 ```javascript
 $(window).on('hashchange', function() {
 	var element = $(location.hash);
@@ -232,25 +232,25 @@ $(window).on('hashchange', function() {
 		- this causes the function to kick in, where the `<img src=1 onerror=alert(1)>` is assigned to the element variable
 			- `.scrollIntoView` will hence throw an error as that is not a legitimate hash as it is unable to render `1`
 				- this will result in `onerror` being executed, where there will be an alert
-Lab: [[DOM XSS in jQuery selector sink using a hashchange event]]
+Lab: [DOM XSS in jQuery selector sink using a hashchange event](../../../../writeups/portswigger/DOM%20XSS%20in%20jQuery%20selector%20sink%20using%20a%20hashchange%20event.md)
 ## DOM XSS In AngularJS
 - using AngularJS, there is no need to use angle brackets or script tags or events
 	- `{{}}` can be used to execute javascript
 - if a website has the `ng-app` attribute, there is AngularJS processing
 	- can execute eg. `{{constructor.constructor('alert(1)')()}}` into search box if `ng-app` present in the HTML code
 - eg. payloads: https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md
-Lab : [[DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded]]
+Lab : [DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded](../../../../writeups/portswigger/DOM%20XSS%20in%20AngularJS%20expression%20with%20angle%20brackets%20and%20double%20quotes%20HTML-encoded.md)
 ## Reflected DOM XSS 
 - the server processes data from the request and echoes the data into the response
 	- the reflected data might be placed in a javascript string literal or data item within the DOM (eg. form field)
 	- script on the page processes the reflected data in an unsafe way, consequently writing the data to a dangerous sink
 `eval('var data = "reflected string"');`
-Lab: [[Reflected DOM XSS]]
+Lab: [Reflected DOM XSS](../../../../writeups/portswigger/Reflected%20DOM%20XSS.md)
 ## Stored DOM XSS
 - website receives data from one request, stores it and then includes the data in a later response
 	- a script within the later response contains a sink which then processes the data in an unsafe way
 `element.innerHTML = comment.author`
-Lab: [[Stored DOM XSS]]
+Lab: [Stored DOM XSS](../../../../writeups/portswigger/Stored%20DOM%20XSS.md)
 ## Potential Sinks
 ### Main Sinks
 ```javascript
@@ -287,7 +287,7 @@ $.parseHTML()
 ```
 # Exploiting XSS
 ## Exploiting XSS To Steal Cookies
-Lab: [[Exploiting cross-site scripting to steal cookies]]
+Lab: [Exploiting cross-site scripting to steal cookies](../../../../writeups/portswigger/Exploiting%20cross-site%20scripting%20to%20steal%20cookies.md)
 ## Exploiting XSS To Steal Passwords
 - to exploit the `autofill` function of browsers
 ```html 
@@ -312,6 +312,6 @@ Lab: [[Exploiting cross-site scripting to steal cookies]]
   </form>
 </body>
 ```
-Lab: [[Exploiting cross-site scripting to capture passwords]]
+Lab: [Exploiting cross-site scripting to capture passwords](../../../../writeups/portswigger/Exploiting%20cross-site%20scripting%20to%20capture%20passwords.md)
 ## Exploiting XSS To Perform CSRF 
-Lab: [[Exploiting XSS to perform CSRF]]
+Lab: [Exploiting XSS to perform CSRF](../../../../writeups/portswigger/Exploiting%20XSS%20to%20perform%20CSRF.md)

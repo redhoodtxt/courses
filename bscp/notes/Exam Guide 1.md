@@ -10,27 +10,27 @@
 # STAGE 1: FOOTHOLD
 - [x] Content Discovery?
 	- `ffuz`, `robots.txt`
-- [ ] [[Cross-Site Scripting (XSS)|XSS?]]
-	- [ ] [[Cross-Site Scripting (XSS)#DOM-Based XSS|DOM XXS?]]
-- [ ] [[Web Cache Poisoning|Web Cache Poisoning?]]
-- [ ] [[HTTP Host Header Attacks|HTTP Host Header Attack?]]
-- [ ] [[HTTP Request Smuggling|Request Smuggling?]]
-- [ ] [[Authentication#Brute-Force Attacks|Brute-Force Authentication?]]
+- [ ] [XSS?](client-side/Cross-Site%20Scripting%20(XSS).md)
+	- [ ] [](client-side/Cross-Site%20Scripting%20(XSS).md#DOM-Based%20XSS|DOM%20XXS?)
+- [ ] [Web Cache Poisoning?](advanced-topics/Web%20Cache%20Poisoning.md)
+- [ ] [HTTP Host Header Attack?](advanced-topics/HTTP%20Host%20Header%20Attacks.md)
+- [ ] [Request Smuggling?](advanced-topics/HTTP%20Request%20Smuggling.md)
+- [ ] [](server-side/Authentication.md#Brute-Force%20Attacks|Brute-Force%20Authentication?)
 - [ ] Others?
 # STAGE 2: PRIVILEGE ESCALATION
-- [ ] [[Cross-Site Request Forgery (CSRF)|CSRF?]]
+- [ ] [CSRF?](client-side/Cross-Site%20Request%20Forgery%20(CSRF).md)
 - [ ] Password Reset
 	- multiple different types, check all
-- [ ] [[SQL Injection|SQLi?]]
+- [ ] [SQLi?](server-side/SQL%20Injection.md)
 - [ ] JWT?
-- [ ] [[Access Control|Access Control?]]
+- [ ] [Access Control?](server-side/Access%20Control.md)
 - [ ] [[Cross-Origin Resource Sharing (CORS)]CORS?]
 
 # STAGE 3: DATA EXFILTRATION
-- [ ] [[XML External Entity Injection (XXE)|XXE?]]
-- [ ] [[Server-Side Request Forgery (SSRF)|SSRF?]]
-- [ ] [[Server-Side Template Injection (SSTI)|SSTI?]]
-- [ ] [[Path Traversal|Path Traversal?]]
-- [ ] [[File Upload|File Upload?]]
-- [ ] [[Insecure Deserialization|Insecure Deserialization?]]
-- [ ] [[OS Command Injection|Command Injection?]]
+- [ ] [XXE?](server-side/XML%20External%20Entity%20Injection%20(XXE).md)
+- [ ] [SSRF?](server-side/Server-Side%20Request%20Forgery%20(SSRF).md)
+- [ ] [SSTI?](advanced-topics/Server-Side%20Template%20Injection%20(SSTI).md)
+- [ ] [Path Traversal?](server-side/Path%20Traversal.md)
+- [ ] [File Upload?](server-side/File%20Upload.md)
+- [ ] [Insecure Deserialization?](advanced-topics/Insecure%20Deserialization.md)
+- [ ] [Command Injection?](server-side/OS%20Command%20Injection.md)

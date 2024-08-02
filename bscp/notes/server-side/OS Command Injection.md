@@ -38,7 +38,7 @@
 ## Blind OS Command Injections With Time Delays 
 - use `ping -c 10 <ip>` to sleep the application for 10s
 - if sleeps, input is vulnerable
-Lab : [[Blind OS command injection with time delays]]
+Lab : [Blind OS command injection with time delays](../../../../writeups/portswigger/Blind%20OS%20command%20injection%20with%20time%20delays.md)
 ## Blind OS Command Injections By Redirecting Output
 - redirect the response of the command and retrieve the file directly using the browser 
 	- websites may be configured to serve files from a parent directory directory 

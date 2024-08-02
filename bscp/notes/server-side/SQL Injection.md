@@ -138,8 +138,8 @@ https://portswigger.net/web-security/sql-injection/cheat-sheet
 		- 1 payload for the index of the password (*Numbers* payload up till length of the password)
 		- 1 payload to increment the value of the alphabet (`='a` to `='z`)
 	- `AND (SELECT SUBSTRING(password,$1$,1) FROM users WHERE username ='administrator')='$a$`
-			![[Pasted image 20240502094625.png]]
-Lab: [[Blind SQL Injection With Conditional Responses]]
+			![Pasted image 20240502094625](../../images/Pasted%20image%2020240502094625.png)
+Lab: [Blind SQL Injection With Conditional Responses](../../../../writeups/portswigger/Blind%20SQL%20Injection%20With%20Conditional%20Responses.md)
 # Error-Based SQL Injection 
 - forcing the database to perform an operation that will result in an error
 	- the point is to extract some useful information from the error message
@@ -152,7 +152,7 @@ Example 1:
 	TrackingId=x'||CAST((SELECT password FROM users LIMIT 1) AS int)--;
 	```
 - As password is a string literal, it cannot be int, and hence this will produce an error as such: 
-![[Pasted image 20240502131107.png]]
+![Pasted image 20240502131107](../../images/Pasted%20image%2020240502131107.png)
 Example 2: 
 Suppose 2 requests containing the following injections are sent: 
 	```
@@ -168,7 +168,7 @@ Suppose 2 requests containing the following injections are sent:
 - Note**: 
 	- the data types for the `CASE` statements for `THEN` and `ELSE` must be of the same data types
 	- the `||` operator is used to concatenate strings together in Oracle
-Lab: [[Blind SQL Injection With Conditional Errors]]
+Lab: [Blind SQL Injection With Conditional Errors](../../../../writeups/portswigger/Blind%20SQL%20Injection%20With%20Conditional%20Errors.md)
 ## Extracting Sensitive Information By Specific/Verbose SQL Error Messages
 - adding a single quote `'` can cause a specific error message to appear: 
 	`Unterminated string literal started at position 52 in SQL SELECT * FROM tracking WHERE id = '''. Expected char`
@@ -178,7 +178,7 @@ Lab: [[Blind SQL Injection With Conditional Errors]]
 	- if it is a string data type, the following error message can appear: 
 		- `ERROR: invalid input syntax for type integer: "Example data"`
 
-Lab : [[Visible Error Based SQL Injection]]
+Lab : [Visible Error Based SQL Injection](../../../../writeups/portswigger/Visible%20Error%20Based%20SQL%20Injection.md)
 # Blind SQLi Using Time Delays 
 - usually when there is error, there is no time delay
 - however if the injected query has a injected time delay based on a condition being true, if the application responds with a time delay, we can assume that the condition is true.
@@ -200,11 +200,11 @@ Lab : [[Visible Error Based SQL Injection]]
 - use scanning : 
 	1. Send request to Intruder
 	2. Add the parameter payloads at the insertion point
-		![[Screenshot 2024-05-03 at 10.01.47 AM 1.png]]
+		![Screenshot 2024-05-03 at 10.01.47 AM 1](../../images/Screenshot%202024-05-03%20at%2010.01.47%20AM%201.png)
 	3.  Right click and press scanned defined insertion points
-		![[Screenshot 2024-05-03 at 10.08.20 AM.png]]
+		![Screenshot 2024-05-03 at 10.08.20 AM](../../../../writeups/portswigger/images/Screenshot%202024-05-03%20at%2010.08.20%20AM.png)
 	4.  If there is a vulnerability, Burp will show under Target for the specific URL 
-		![[Screenshot 2024-05-03 at 10.01.08 AM.png]]
+		![Screenshot 2024-05-03 at 10.01.08 AM](../../../../writeups/portswigger/images/Screenshot%202024-05-03%20at%2010.01.08%20AM.png)
 
 ## Extracting Data From DNS Lookup 
 -  Having confirmed a way to trigger out-of-band interactions, you can then use the out-of-band channel to exfiltrate data from the vulnerable application. For example:
